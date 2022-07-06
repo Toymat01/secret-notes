@@ -61,7 +61,7 @@ const Login = () => {
         <Container className={classes.page}>
             <div className={classes.space} >
                 <LockOpenOutlined color='secondary' />
-                <Typography>Sing in</Typography>
+                <Typography>Sign in</Typography>
             </div>
                <Stack
                     component="form"
