@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-
+import { blue, green, yellow ,pink } from "@material-ui/core/colors";
 
 
 
@@ -53,4 +53,18 @@ const useStyles = makeStyles((theme) => {
     }
 })
 
-export {useStyles};
+const avatarBgColor = (note) => {
+    if (note.category === "Work"){
+      return yellow[800];
+    }
+    if (note.category === "money"){
+      return green[800];
+    }
+    if (note.category === "Todos"){
+      return pink[500];
+    } else {
+      return blue[700];
+    }
+  };
+
+export {useStyles, avatarBgColor};

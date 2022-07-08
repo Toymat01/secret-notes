@@ -7,7 +7,6 @@ import { collection, deleteDoc, getDocs ,query, where, doc} from "firebase/fires
 import { useAuthState } from "react-firebase-hooks/auth";
 
 
-
 const Notes = () => {
     const[notes, setNotes] =useState([]);
     const [user] = useAuthState(auth);
@@ -15,51 +14,49 @@ const Notes = () => {
     
   
 
-useEffect(() => {
-    if(user){
-        const q = query (collection(db,'notes'), where('uid', '==',  user?.uid));
-            getDocs(q)
-            .then((res) => {
-                const data = res.docs.map(doc => {
-                    return {...doc.data(), id: doc.id}
-                })
-                setIsLoading(false);
-                setNotes(data)
-            }).catch(err => console.log(err.message))
-    }
-}, [user]); 
+        useEffect(() => {
+            if(user){
+                const q = query (collection(db,'notes'), where('uid', '==',  user?.uid));
+                    getDocs(q)
+                    .then((res) => {
+                        const data = res.docs.map(doc => {
+                            return {...doc.data(), id: doc.id}
+                        })
+                        setIsLoading(false);
+                        setNotes(data)
+                    }).catch(err => console.log(err.message))
+            }
+        }, [user]); 
 
-const handleDelete = (id) =>{
-    deleteDoc(doc(db,"notes", `${id}`))
-        const newNotes = notes.filter(note => note.id !== id)
-        setNotes(newNotes);
-         console.log(id)  
-}
+        const handleDelete = (id) =>{
+            deleteDoc(doc(db,"notes", `${id}`))
+                const newNotes = notes.filter(note => note.id !== id)
+                setNotes(newNotes);
+                console.log(id)  
+        }
 
-
-
-if(user){
-    return (
-        <Container>
-            {isLoading && <Typography variant="h5" textAlign={"center"}>Fetching Data...</Typography>}
-            <Grid container spacing={3}>
-                {notes.map(note =>(
-                    <Grid item key={note.id} xs={12} lg={4} md={6} >
-                        <NoteCard note={note} handleDelete={handleDelete} id = {note.id} />
+        if(user){
+            return (
+                <Container>
+                    {isLoading && <Typography variant="h5" textAlign={"center"}>Fetching Data...</Typography>}
+                    <Grid container spacing={3}>
+                        {notes.map(note =>(
+                            <Grid item key={note.id} xs={12} lg={4} md={6} >
+                                <NoteCard note={note} handleDelete={handleDelete} id = {note.id} />
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-            </Grid>
-        </Container>
-    );
- }else{
-    return(
-        <Container>
-            <Typography variant="h4" textAlign={'center'}>
-                Please login to  see your  notes
-            </Typography>
-        </Container>
-    )
-}
+                </Container>
+            );
+        }else{
+            return(
+                <Container>
+                    <Typography variant="h4" textAlign={'center'}>
+                        Please login to  see your  notes
+                    </Typography>
+                </Container>
+            )
+        }
 
    
 }

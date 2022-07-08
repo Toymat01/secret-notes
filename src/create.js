@@ -1,5 +1,5 @@
 import { ArrowRight } from "@mui/icons-material";
-import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,13 +40,12 @@ const handleSubmit = (e) =>{
     }).catch((err) =>{console.log(err.message)})
   }
 }
-
     return (
         <Container >
             <Typography color="textSecondary">
                 Create Notes
             </Typography>
-            <form noValidate autoComplete="off" >
+            <Stack noValidate autoComplete="off" type="form" >
                 <TextField 
                    label="Notes Title" 
                    required
@@ -77,15 +76,16 @@ const handleSubmit = (e) =>{
                         <FormControlLabel value="Todos" control={<Radio />} label="Todos" />
                     </RadioGroup>
                 </FormControl>
-            </form>
-            <Button
+                <Button
                     endIcon={<ArrowRight />}
                     variant="contained"
                     color="primary"
-                    onClick={handleSubmit}
+                    onClick={ handleSubmit}
+                    sx={{width:100}}
                    >
                      Submit
                 </Button>
+            </Stack>
         </Container>
     );
 }

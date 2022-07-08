@@ -11,14 +11,12 @@ function App() {
   return (
     <Router>
       <Layout >
-      <div className="App">
         <Routes>
             <Route path="/create" element={ <Create />} />
             <Route path="/" element={<Notes />} />
             <Route path="/login" element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
         </Routes>
-        </div>
       </Layout>
     </Router>
   );

@@ -93,15 +93,13 @@ export default function Layout({children}) {
         <Toolbar >
           <IconButton
                 color="inherit"
-                aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                sx={{ mr: 2,}}
               >
                 <MenuIcon />
               </IconButton>
           <Typography className={classes.date}>
-            Today is the {format (new Date(), 'do MMMM Y')}
+            Today is {format (new Date(), 'do MMMM Y')}
           </Typography>
           <Box className={!user ? classes.profile : null}>
             <Box sx={{display:{sm:'flex', xs:'none'}}} alignItems="center" >
@@ -122,11 +120,9 @@ export default function Layout({children}) {
         onClose={handleDrawerToggle}
       >
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-          <div>
             <Typography variant="h5" className={classes.title} color="secondary" >
               Secret Notes
             </Typography>
-          </div>
           <List className={!user ? classes.button : null}>
             {menuItem1.map(item =>(
               <ListItem key={item.text} button onClick={() => navigate(item.path)} className={location.pathname === item.path ? classes.active : null}>
