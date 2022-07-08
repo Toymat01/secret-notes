@@ -1,7 +1,7 @@
 import {   Button, Container, TextField, Typography } from "@material-ui/core";
 import { LockOpenOutlined } from "@mui/icons-material";
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Stack } from "@mui/material";
+import { useStyles } from "./styles";
+import {  Stack } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,23 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const useStyles = makeStyles((theme) => {
-    return{
-        page:{
-            textAlign:'center',
-            padding:theme.spacing(5)
-        },
-        link:{
-            margin:'10px auto',
-        },
-        form:{
-            margin: '0 auto', 
-        },
-        space:{
-            marginBottom:'15px'
-        },
-    }
-});
 
 
 const Login = () => {
@@ -58,25 +41,20 @@ const Login = () => {
     },[user,loading])
 
     return (
-        <Container className={classes.page}>
+        <Container className={classes.userPage}>
             <div className={classes.space} >
                 <LockOpenOutlined color='secondary' />
                 <Typography>Sign in</Typography>
             </div>
                <Stack
                     component="form"
-                    spacing={2}
+                    spacing={3}
                     noValidate
                     autoComplete="off"
-                    className={classes.form}
                     >
                         <TextField variant="outlined"  label='Email address' required  value={email} onChange={e => setEmail(e.target.value)} />
-                        <TextField variant="outlined"  label='Password' required  value={password} onChange={e => setPassword(e.target.value)}  />
+                        <TextField variant="outlined"  type="password" label='Password' required  value={password} onChange={e => setPassword(e.target.value)}  />
                         <Button color='primary' variant="contained" onClick= {() => login(email,password)} >Sign in</Button>    
-                       {/* <div className={classes.link}>
-                        <a href="/" > forgot password?</a>
-                        <a href="/">Dont have an account? sign up</a>
-                    </div> */}
                </Stack>
              
          </Container>

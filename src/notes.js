@@ -55,7 +55,7 @@ if(user){
     return(
         <Container>
             <Typography variant="h4" textAlign={'center'}>
-                Please Login to  View  Notes
+                Please login to  see your  notes
             </Typography>
         </Container>
     )

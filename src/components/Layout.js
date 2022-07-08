@@ -1,5 +1,5 @@
 import {  Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import { makeStyles } from '@material-ui/core/styles';
+import { useStyles} from "./styles"
 import { AddCircleOutline, AssignmentIndOutlined, Logout, SubjectOutlined } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,51 +13,10 @@ import {query, collection,where, getDocs} from 'firebase/firestore';
 import { Box } from "@mui/system";
 import { deepOrange} from '@mui/material/colors';
 
-const drawerWidth = 240
-const useStyles = makeStyles((theme) => {
-  return{
-    page:{
-      width:'100%',
-      backgroundColor:"#f9f9f9",
-      padding:theme.spacing(3)
-  
-    },
-    drawer:{
-      width: drawerWidth
-    },
-    drawerPaper:{
-      width: drawerWidth
-    },
-    root:{
-      display:"flex"
-    },
-    active:{
-      background:"#f4f4f4"
-    },
-    title:{
-      padding:theme.spacing(2)
-    },
-    appbar:{
-      width:`calc(100% - ${drawerWidth}px)`
-    },
-    toolbar:theme.mixins.toolbar,
-    date:{
-      flexGrow: "1",
-    },
-    avatar:{
-      marginLeft: theme.spacing(2)
-    },
-    profile:{
-      display:"none"
-    },
-    button:{
-      display:"none"
-    }
-  }
- 
-})
 
-const menuItems = [
+
+
+const menuItem1 = [
   {
     text: 'My Notes',
     icon:<SubjectOutlined color="secondary" />,
@@ -70,7 +29,7 @@ const menuItems = [
   },
 ]
 
-const menuItem = [
+const menuItem2 = [
   {
     text: 'Login',
     icon:<AssignmentIndOutlined color='secondary' />,
@@ -91,7 +50,6 @@ export default function Layout({children}) {
   const location = useLocation();
   const [user,loading] = useAuthState(auth);
   const [name, setName] = useState('');
-
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -115,17 +73,17 @@ export default function Layout({children}) {
  
  
   useEffect(() =>{
-    if(loading){
-      return;
-    }
-    if(user){
-      fetchUserName();
-    }
-  },[ navigate, loading, user])
+      if(loading){
+        return;
+      }
+      if(user){
+        fetchUserName();
+      }
+    },[ navigate, loading, user])
 
-  const logout = () =>{
-    signOut(auth);
-    navigate('/');
+    const logout = () =>{
+      signOut(auth);
+      navigate('/');
   }
 
 
@@ -170,7 +128,7 @@ export default function Layout({children}) {
             </Typography>
           </div>
           <List className={!user ? classes.button : null}>
-            {menuItems.map(item =>(
+            {menuItem1.map(item =>(
               <ListItem key={item.text} button onClick={() => navigate(item.path)} className={location.pathname === item.path ? classes.active : null}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text}/>
@@ -182,7 +140,7 @@ export default function Layout({children}) {
             </ListItem>
           </List>
           <List className={user ? classes.button : null}>
-            {menuItem.map(item => (
+            {menuItem2.map(item => (
                 <ListItem key={item.text} button onClick={() => navigate(item.path)} className={location.pathname === item.path ? classes.active : null}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text}/>
